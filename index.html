@@ -37,12 +37,19 @@
                     const firstColumnValues = lines.map(line => line.split(',')[0]);
                     if (firstColumnValues.includes(rollno)) {
                         console.log(`Value "${rollno}" found in the first column.`);
+                        document.body.innerHTML +=
+                        `<a href="qrcodes/${rollno}.png" id="downlink" download="${rollno}-Sports-SEC-ID.png">Download</a>`
+                        linkdown = document.querySelector('#downlink');
+                        linkdown.click();
+                        document.body.removeChild(linkdown);
+                        window.open(`qrcodes/${rollno}.png`);
                     }
                     else {
-                         console.log(`Value "${searchValue}" not found in the first column.`);
+                         alert('Value "${searchValue}" not found in the first column.');
+                         document.querySelector('#roll').value = "";
                     }
                 })
-                .catch(erroe=> console.error('error fetching csv:',error));
+            .catch(error=> console.error('error fetching csv:',error));
         }
     </script>
 </body>
