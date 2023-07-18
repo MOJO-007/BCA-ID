@@ -29,23 +29,21 @@
         });
 
         function download(){
-            var roll= document.getElementById('roll').value.toUpperCase();
-            console.log(roll)
-            const pattern=/^(21|22)BCA[A-F](0[0-9]|1[0-9]|2[0-4])$/;
-            if(pattern.test(roll)){
-                var imageURL = `https://bca-id.vercel.app/qrcodes/${roll}.png`;
-                var link=document.createElement('a');
-                link.href=imageURL
-                link.download = '${roll}.png';
-                link.click()
-                window.location.href = 'https://bca-id.vercel.app';
-            }
-            else{
-                alert("Invalid Roll number");
-            }
-            
+            var rollno = document.querySelector('#roll').value.toUpperCase().trim();
+            fetch('BCA.csv')
+                .then(response => response.text())
+                .then(data => {
+                    const lines = data.split('\n');
+                    const firstColumnValues = lines.map(line => line.split(',')[0]);
+                    if (firstColumnValues.includes(rollno)) {
+                        console.log(`Value "${rollno}" found in the first column.`);
+                    }
+                    else {
+                         console.log(`Value "${searchValue}" not found in the first column.`);
+                    }
+                })
+                .catch(erroe=> console.error('error fetching csv:',error));
         }
     </script>
-
 </body>
 </html>
