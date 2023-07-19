@@ -1,25 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Download your ID card</title>
+    <style>
+      body {
+      background-color: #001220;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      color: white;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      border: 2px solid black;
+      border-radius: 5px;
+      background-color: white;
+      color: #fff;
+      padding: 10px 15px;
+      font-size: 18px;
+    }
+
+    .form-control::placeholder {
+      color: #666;
+    }
+
+    .btn {
+      background-color: #1a8cff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 30px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      color: white;
+    }
+
+    .btn:hover {
+      background-color: #ADD8E6;
+    }
+    </style>
 <body>
-    <div class="container">
-        <div class="content">
-          <h1 class="title">Download your ID</h1>
-          <form>
-            <div class="form-group">
-              <label for="roll">Enter your Roll Number:</label>
-              <input type="text" name="roll" id="roll" placeholder="Example: 21BCA01" class="form-control" autofocus>
-            </div>
-            <div class="form-group">
-              <input type="" value="Download" class="btn" onclick="download()">
-            </div>
-          </form>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <h1>Download your ID :</h1>
+        <div class="form-group">
+          <label for="roll">Enter your Roll Number:</label>
+          <input type="text" name="roll" id="roll" placeholder="Example: 21BCA01" class="form-control" autofocus>
         </div>
+        <input type="" value="Download" class="btn" onclick="download()">
       </div>
+    </div>
+  </div>
+
 
     <script>
         document.getElementById("roll").addEventListener("keypress", function(event) {
