@@ -15,7 +15,7 @@
               <input type="text" name="roll" id="roll" placeholder="Example: 21BCA01" class="form-control" autofocus>
             </div>
             <div class="form-group">
-              <input type="submit" value="Download" class="btn" onclick="download()">
+              <input type="" value="Download" class="btn" onclick="download()">
             </div>
           </form>
         </div>
@@ -28,29 +28,44 @@
             }
         });
 
+        
+
+
         function download(){
             var rollno = document.querySelector('#roll').value.toUpperCase().trim();
             fetch('BCA.csv')
                 .then(response => response.text())
                 .then(data => {
-                    const lines = data.split('\n');
-                    const firstColumnValues = lines.map(line => line.split(',')[0]);
-                    if (firstColumnValues.includes(rollno)) {
-                        console.log(`Value "${rollno}" found in the first column.`);
+                  Papa.parse(data,{
+                    header: true,
+                    skipEmptyLines : true,
+                    complete : function(results){
+                      // console.log(results);
+                      let isValuePresent=false;
+                      for(i =0;i< results.data.length;i++){
+                        if(results.data[i].Number === rollno){
+                          isValuePresent= true;
+                          break;
+                        }
+                      }
+                      if(isValuePresent){
+                        console.log("ID Found");
                         document.body.innerHTML +=
                         `<a href="qrcodes/${rollno}.png" id="downlink" download="${rollno}.png">Download</a>`
                         linkdown = document.querySelector('#downlink');
                         linkdown.click();
                         document.body.removeChild(linkdown);
                         window.open(`qrcodes/${rollno}.png`);
+                      }
+                      else{
+                        console.log("ID is not found");
+                        alert("Please Enter Correct Roll number");
+                      }
                     }
-                    else {
-                         alert('Enter the correct roll number');
-                         document.querySelector('#roll').value = "";
-                    }
-                })
-            .catch(error=> console.error('error fetching csv:',error));
+                  });
+                });
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.1/papaparse.min.js"></script>
 </body>
 </html>
